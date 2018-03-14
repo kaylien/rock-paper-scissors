@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Function scope example</title>
+</head>
+<body>
+  
+  <script>
+
+  	function caseInsensitive(str) {
+  		var lowercaseStr = str.slice(1).toLowerCase();
+    	var capitalized = str.charAt(0).toUpperCase() + lowercaseStr;
+    	return capitalized;
+  	}
+
+  	function computerPlay() {
+	var choice = Math.floor(Math.random() * 3);
+
+	switch (choice) {
+	case 0:
+		return "Rock";
+		break;
+	case 1:
+		return "Paper";
+		break;
+	case 2:
+		return "Scissors";
+		break;
+	default:
+		console.log("Computer didn't pick");
+		}
+	}
+
+	function playRound(player, computer) {
+		var playerAnswer = caseInsensitive(player);
+
+		if (playerAnswer == computer) {
+			console.log("It's a tie! You both played " + playerAnswer);
+			return 0;
+		}
+		else if ((playerAnswer == "Rock" & computer == "Paper") ||
+				 (playerAnswer == "Paper" & computer == "Scissors") ||
+				 (playerAnswer == "Scissors" & computer == "Rock")) {
+			console.log("You lose! " + computer + " beats " + playerAnswer + "!");
+			return -1;
+		}
+		else {
+			console.log("You win! " + playerAnswer + " beats " + computer + "!");
+			return 1;
+		}
+	}
+
+	function game() {
+		var player;
+		var computer;
+		var resultOfRound = 0;
+
+		for (var i = 0; i < 5; i++) {
+			player = prompt("Rock, paper, or scissors?");
+			computer = computerPlay();
+
+			resultOfRound += playRound(player, computer);
+		}
+
+		if (resultOfRound == 0) {
+			console.log("It's a tie!");
+		}
+		else if (resultOfRound < 0) {
+			console.log("You lost big time buddy!")
+		}
+		else {
+			console.log("Hohoho you win!");
+		}
+	}
+  </script>
+</body>
+</html>
