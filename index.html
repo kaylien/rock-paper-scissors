@@ -15,21 +15,21 @@
   	}
 
   	function computerPlay() {
-	var choice = Math.floor(Math.random() * 3);
-
-	switch (choice) {
-	case 0:
-		return "Rock";
-		break;
-	case 1:
-		return "Paper";
-		break;
-	case 2:
-		return "Scissors";
-		break;
-	default:
-		console.log("Computer didn't pick");
-		}
+		var choice = Math.floor(Math.random() * 3);
+	
+		switch (choice) {
+		case 0:
+			return "Rock";
+			break;
+		case 1:
+			return "Paper";
+			break;
+		case 2:
+			return "Scissors";
+			break;
+		default:
+			console.log("Computer didn't pick");
+			}
 	}
 
 	function playRound(player, computer) {
