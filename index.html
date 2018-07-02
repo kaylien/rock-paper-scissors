@@ -5,8 +5,76 @@
   <title>Function scope example</title>
 </head>
 <body>
-  
+	<p id="p1">Click play game!</p>
+	<div> 
+		<button id="0" type="button">Rock</button>
+		<button id="1" type="button">Paper</button>
+		<button id="2" type="button">Scissors</button>
+		<button id="3" onclick="showGame()" type="button">Play Game</button>
+	</div>
+
   <script>
+  	var roundsLeft = 5;
+	var resultOfRound = 0;
+
+  	const buttons = document.getElementsByTagName('button');
+  	console.log(buttons);
+
+  	const rock_button = document.getElementById("0");
+  	const paper_button = document.getElementById("1");
+  	const scissors_button = document.getElementById("2");
+	const game_button = document.getElementById("3");
+
+
+  	game_button.addEventListener('click', game);
+
+
+  	for (var i = 0; i < 3; i++) {
+  		buttons[i].style.display = "none";
+  	}
+
+
+  	function showGame() {
+  		var x = document.getElementById("0");
+
+  		if (x.style.display === "none") {
+       		 x.style.display = "inline";
+    	} 
+    	else {
+        x.style.display = "none";
+   		}
+
+   		for (var i = 0; i < 3; i++) {
+  			if (buttons[i].style.display = "none") {
+  				buttons[i].style.display = "inline";
+  			}
+  			else {
+  				buttons[i].style.display = "none";
+  			}
+  		}
+
+  		buttons[3].style.display = "none";
+  	}
+
+  	function logButton(e) {
+
+
+  		//var player = e.target.id;
+  		var playerAnswer = e.target.textContent;
+  		//var general = e.path[0];
+  		var computerAnswer = computerPlay();
+
+  		//console.log(playerAnswer);
+  		//console.log(computerAnswer);
+
+
+
+  		resultOfRound += playRound(playerAnswer, computerAnswer);
+  		roundsLeft -= 1;
+  		document.getElementById("p1").innerHTML = roundsLeft + " turns left!";
+  		game();
+
+  	}
 
   	function caseInsensitive(str) {
   		var lowercaseStr = str.slice(1).toLowerCase();
@@ -37,40 +105,45 @@
 
 		if (playerAnswer == computer) {
 			console.log("It's a tie! You both played " + playerAnswer);
+			//console.log("0");
 			return 0;
 		}
 		else if ((playerAnswer == "Rock" & computer == "Paper") ||
 				 (playerAnswer == "Paper" & computer == "Scissors") ||
 				 (playerAnswer == "Scissors" & computer == "Rock")) {
 			console.log("You lose! " + computer + " beats " + playerAnswer + "!");
+			//console.log("-1");
 			return -1;
 		}
 		else {
 			console.log("You win! " + playerAnswer + " beats " + computer + "!");
+			//console.log("1");
 			return 1;
 		}
 	}
 
 	function game() {
-		var player;
-		var computer;
-		var resultOfRound = 0;
 
-		for (var i = 0; i < 5; i++) {
-			player = prompt("Rock, paper, or scissors?");
-			computer = computerPlay();
+		//alert("Rock, paper, or scissors?");
 
-			resultOfRound += playRound(player, computer);
-		}
+		//for (button in buttons)
+		
+		rock_button.addEventListener('click', logButton);
+  		paper_button.addEventListener('click', logButton);
+  		scissors_button.addEventListener('click', logButton);
+  		
+  		if(roundsLeft == 0) {
+			if (resultOfRound == 0) {
+				document.getElementById("p1").innerHTML = "It's a tie!!";
+			}
 
-		if (resultOfRound == 0) {
-			console.log("It's a tie!");
-		}
-		else if (resultOfRound < 0) {
-			console.log("You lost big time buddy!")
-		}
-		else {
-			console.log("Hohoho you win!");
+			else if (resultOfRound < 0) {
+				document.getElementById("p1").innerHTML = "You lost big time, buddy!!";
+			}
+
+			else {
+				document.getElementById("p1").innerHTML = "Hohoho you win!";
+			}
 		}
 	}
   </script>
